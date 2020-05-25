@@ -1,6 +1,7 @@
 import { opine } from "https://deno.land/x/opine@master/mod.ts";
 import { languageList } from "./languages.ts";
 import { translateText } from "./services/translate.ts";
+import { languagePicker } from "./services/language_picker.ts";
 import "https://deno.land/x/dotenv/load.ts";
 
 const app = opine();
@@ -55,7 +56,7 @@ app.get("/webhooks/asr", async function (req, res) {
     },
     {
       action: 'talk',
-      text: `This is your text translated into another language: ${await translateText(mostConfidentResultsText)}`
+      text: `This is your text translated into ${languagePicker.name}: ${await translateText(mostConfidentResultsText)}`
     }
   ])
 });

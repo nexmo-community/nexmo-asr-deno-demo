@@ -1,10 +1,13 @@
 export const getToken = async (key: string) => {
-  const response = await fetch("https://westeurope.api.cognitive.microsoft.com/sts/v1.0/issuetoken", {
+  console.log(`THE KEY IN THE GETTOKEN FUNCTION: ${key}`);
+  const response = (await fetch("https://westeurope.api.cognitive.microsoft.com/sts/v1.0/issuetoken", {
     method: 'POST',
     headers: {
-      'Ocp-Apim-Subscription-Key': key
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Content-length': '0',
+      'Ocp-Apim-Subscription-Key': key.toString()
     }
-  })
-  console.dir(`THIS IS THE RESPONSE: ${response}`);
-  return response.json().then(response => { console.log(`INSIDE THE GETTOKEN FUNCTION: ${JSON.stringify(response)}`) });
+  }));
+  console.log(`THIS IS THE RESPONSE INSIDE THE GET TOKEN FUNCTION: ${response}`);
+  return response.json().then(response => { console.log(`INSIDE THE GETTOKEN RETURN FUNCTION: ${JSON.stringify(response)}`) });
 }
