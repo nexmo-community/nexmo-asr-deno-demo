@@ -7,6 +7,7 @@ import "https://deno.land/x/dotenv/load.ts";
 const app = opine();
 const azureSubscriptionKey = Deno.env.get("AZURE_SUBSCRIPTION_KEY") || ''
 const azureEndpoint = Deno.env.get("AZURE_ENDPOINT") || ''
+const languageChoice = languagePicker(languageList);
 
 app.get("/webhooks/answer", async function (req, res) {
   const uuid = req.query.uuid
@@ -32,22 +33,6 @@ app.get("/webhooks/answer", async function (req, res) {
 app.get("/webhooks/asr", async function (req, res) {
   const data = await JSON.parse(req.query.speech)
   const mostConfidentResultsText = data.results[0].text
-  const translateOptions = {
-    method: 'POST',
-    url: 'translate',
-    qs: {
-      'api-version': '3.0',
-      'to': ['de', 'it']
-    },
-    headers: {
-      'Ocp-Apim-Subscription-Key': azureSubscriptionKey.toString(),
-      'Content-type': 'application/json'
-    },
-    body: JSON.stringify([{
-      'text': `${mostConfidentResultsText}`
-    }]),
-    json: true,
-  }
   res.status = 200
   res.json([
     {
@@ -56,7 +41,7 @@ app.get("/webhooks/asr", async function (req, res) {
     },
     {
       action: 'talk',
-      text: `This is your text translated into ${languagePicker.name}: ${await translateText(mostConfidentResultsText)}`
+      text: `This is your text translated into ${languageChoice.name}: ${await translateText(languageChoice.code.split('-')[0], mostConfidentResultsText)}`
     }
   ])
 });

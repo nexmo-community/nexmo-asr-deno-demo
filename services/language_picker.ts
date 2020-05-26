@@ -1,3 +1,4 @@
 export const languagePicker = (languages: any) => {
-  return languages[Math.floor(Math.random() * languages.length)];
+ const language = languages[Math.floor(Math.random() * languages.length)];
+ return language;
 }
