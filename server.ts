@@ -2,7 +2,6 @@ import { opine } from "https://deno.land/x/opine@master/mod.ts";
 import { languageList } from "./languages.ts";
 import { translateText } from "./services/translate.ts";
 import { languagePicker } from "./services/language_picker.ts";
-import "https://deno.land/x/dotenv/load.ts";
 const app = opine();
 const languageChoice = languagePicker(languageList);
 
