@@ -3,10 +3,7 @@ import { languageList } from "./languages.ts";
 import { translateText } from "./services/translate.ts";
 import { languagePicker } from "./services/language_picker.ts";
 import "https://deno.land/x/dotenv/load.ts";
-
 const app = opine();
-const azureSubscriptionKey = Deno.env.get("AZURE_SUBSCRIPTION_KEY") || ''
-const azureEndpoint = Deno.env.get("AZURE_ENDPOINT") || ''
 const languageChoice = languagePicker(languageList);
 
 app.get("/webhooks/answer", async function (req, res) {
