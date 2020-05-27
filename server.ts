@@ -42,7 +42,11 @@ app.get("/webhooks/asr", async function (req, res) {
     },
     {
       action: 'talk',
-      text: `This is your text translated into ${languageChoice.name}: ${await translateText(languageChoice.code.split('-')[0], mostConfidentResultsText)}`,
+      text: `This is your text translated into ${languageChoice.name}`
+    },
+    {
+      action: 'talk',
+      text: `${await translateText(languageChoice.code.split('-')[0], mostConfidentResultsText)}`,
       voiceName: voiceChoice
     }
   ])
@@ -53,3 +57,5 @@ app.get("/webhooks/event", async function (req, res) {
 })
 
 app.listen({ port: 8000 });
+console.log("Deno is running on port 8000");
+console.log(`Language to translate into: ${languageChoice.name} and Vonage language voice being used: ${voiceChoice}`);
