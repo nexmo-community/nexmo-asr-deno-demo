@@ -2,6 +2,8 @@ import { opine } from "https://deno.land/x/opine@master/mod.ts";
 import { languageList } from "./languages.ts";
 import { translateText } from "./services/translate.ts";
 import { languagePicker } from "./services/language_picker.ts";
+import "https://deno.land/x/dotenv/load.ts";
+const asrWebhook: string | undefined = Deno.env.get("VONAGE_ASR_WEBHOOK");
 const app = opine();
 const languageChoice = languagePicker(languageList);
 
@@ -15,7 +17,7 @@ app.get("/webhooks/answer", async function (req, res) {
       bargeIn: true
     },
     {
-      eventUrl: ['https://example.ngrok.io/webhooks/asr'],
+      eventUrl: [asrWebhook],
       eventMethod: 'GET',
       action: 'input',
       speech: {

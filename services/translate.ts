@@ -1,6 +1,5 @@
 import { getToken } from './auth/token.ts';
 import "https://deno.land/x/dotenv/load.ts";
-import { languageList } from '../languages.ts';
 const azureSubscriptionKey: string | undefined = Deno.env.get("AZURE_SUBSCRIPTION_KEY");
 
 export const translateText = async (languageCode: string, text: string) => {
