@@ -1,6 +1,6 @@
 import { opine } from "https://deno.land/x/opine@master/mod.ts";
-import { languageList } from "./languages.ts";
-import { voicesList } from "./voices.ts";
+import { languageList } from "./data/languages.ts";
+import { voicesList } from "./data/voices.ts";
 import { translateText } from "./services/translate.ts";
 import { voicePicker } from "./services/voice_picker.ts";
 import { languagePicker } from "./services/language_picker.ts";
