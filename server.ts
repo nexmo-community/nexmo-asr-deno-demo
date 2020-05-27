@@ -1,11 +1,14 @@
 import { opine } from "https://deno.land/x/opine@master/mod.ts";
 import { languageList } from "./languages.ts";
+import { voicesList } from "./voices.ts";
 import { translateText } from "./services/translate.ts";
+import { voicePicker } from "./services/voice_picker.ts";
 import { languagePicker } from "./services/language_picker.ts";
 import "https://deno.land/x/dotenv/load.ts";
 const asrWebhook: string | undefined = Deno.env.get("VONAGE_ASR_WEBHOOK");
 const app = opine();
 const languageChoice = languagePicker(languageList);
+const voiceChoice = voicePicker(voicesList, languageChoice);
 
 app.get("/webhooks/answer", async function (req, res) {
   const uuid = req.query.uuid
@@ -39,7 +42,8 @@ app.get("/webhooks/asr", async function (req, res) {
     },
     {
       action: 'talk',
-      text: `This is your text translated into ${languageChoice.name}: ${await translateText(languageChoice.code.split('-')[0], mostConfidentResultsText)}`
+      text: `This is your text translated into ${languageChoice.name}: ${await translateText(languageChoice.code.split('-')[0], mostConfidentResultsText)}`,
+      voiceName: voiceChoice
     }
   ])
 });
