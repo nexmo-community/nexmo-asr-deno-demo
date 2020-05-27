@@ -7,10 +7,10 @@ This is a voice application written in TypeScript and running on Deno that uses 
 
 ## Prerequisites
 
-* Deno
-* A Nexmo account
-* A Nexmo provisioned phone number
-* Microsoft Azure account
+* [Deno](https://deno.land/) installed locally
+* A [Nexmo account](https://dashboard.nexmo.com/sign-up?utm_source=DEV_REL&utm_medium=github&utm_campaign=nexmo-asr-deno-demo)
+* A [Nexmo provisioned phone number](https://dashboard.nexmo.com)
+* A [Microsoft Azure account](https://portal.azure.com)
 
 ## Installation
 
