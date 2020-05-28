@@ -7,8 +7,6 @@ import { languagePicker } from "./services/language_picker.ts";
 import "https://deno.land/x/dotenv/load.ts";
 const asrWebhook: string | undefined = Deno.env.get("VONAGE_ASR_WEBHOOK");
 const app = opine();
-const languageChoice = languagePicker(languageList);
-const voiceChoice = voicePicker(voicesList, languageChoice);
 
 app.get("/webhooks/answer", async function (req, res) {
   const uuid = req.query.uuid
@@ -33,7 +31,16 @@ app.get("/webhooks/answer", async function (req, res) {
 
 app.get("/webhooks/asr", async function (req, res) {
   const data = await JSON.parse(req.query.speech)
-  const mostConfidentResultsText = data.results[0].text
+  var mostConfidentResultsText;
+  if (!data.results) {
+    console.log("Vonage ASR did not pick up what you tried to say");
+    mostConfidentResultsText = 'Vonage ASR did not pick up your speech. Please call back and try again.';
+  } else {
+    mostConfidentResultsText = data.results[0].text;
+  };
+  const languageChoice = languagePicker(languageList);
+  const voiceChoice = voicePicker(voicesList, languageChoice);
+  console.log(`Language to translate into: ${languageChoice.name} and Vonage language voice being used: ${voiceChoice}`);
   res.status = 200
   res.json([
     {
@@ -58,4 +65,3 @@ app.get("/webhooks/event", async function (req, res) {
 
 app.listen({ port: 8000 });
 console.log("Deno is running on port 8000");
-console.log(`Language to translate into: ${languageChoice.name} and Vonage language voice being used: ${voiceChoice}`);
