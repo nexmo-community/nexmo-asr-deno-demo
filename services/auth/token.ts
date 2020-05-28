@@ -18,6 +18,6 @@ export const getToken = async (key: string | undefined) => {
       'Ocp-Apim-Subscription-Key':key.toString()
     }
   })
-  var text = await data.text();
+  const text = await data.text();
   return text; 
 };

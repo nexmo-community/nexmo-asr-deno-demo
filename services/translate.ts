@@ -12,6 +12,6 @@ export const translateText = async (languageCode: string, text: string) => {
     },
     body: JSON.stringify([{"text": text}])
   });
-  var translation = await response.json();
+  const translation = await response.json();
   return translation[0][<any>"translations"][0][<any>"text"]
 };
