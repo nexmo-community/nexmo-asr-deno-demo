@@ -5,12 +5,12 @@ import { translateText } from "./services/translate.ts";
 import { voicePicker } from "./services/voice_picker.ts";
 import { languagePicker } from "./services/language_picker.ts";
 import "https://deno.land/x/dotenv/load.ts";
-const asrWebhook: string | undefined = Deno.env.get("VONAGE_ASR_WEBHOOK");
 const app = opine();
 
 app.get("/webhooks/answer", async function (req, res) {
   const uuid = req.query.uuid
   res.status = 200
+
   res.json([
     {
       action: 'talk',
@@ -18,7 +18,7 @@ app.get("/webhooks/answer", async function (req, res) {
       bargeIn: true
     },
     {
-      eventUrl: [asrWebhook],
+      eventUrl: [`${req.headers.get("x-forwarded-proto") || "http"}://${req.headers.get("host")}/webhooks/asr`],
       eventMethod: 'GET',
       action: 'input',
       speech: {
