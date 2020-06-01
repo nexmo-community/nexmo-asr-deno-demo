@@ -32,7 +32,7 @@ To use this application:
   * i.e. `https://my-ngrok-url.ngrok.io/webhooks/event`
 * Copy the `.env.sample` file to `.env` and fill in the values for the variables
   * `AZURE_SUBSCRIPTION_KEY` is your API key for the Microsoft Azure Speech Translation service
-  * `AZURE_ENDPOINT` is your regionally specific endpoint for the Microsoft Azure Speech Translation service
+  * `AZURE_ENDPOINT` is your regionally specific endpoint to generate a Microsoft Azure JSON web token for authentication
   * `VONAGE_ASR_WEBHOOK` is your externally accessible webhook URL to receive the text back from the Vonage ASR service
 * Run the Deno server by executing the following command from inside the project folder: `deno run --allow-read --allow-env --allow-net server.ts`
 * Call your Nexmo provisioned phone number and follow the instructions on the call

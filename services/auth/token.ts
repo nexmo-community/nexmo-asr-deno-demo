@@ -10,7 +10,7 @@ export const getToken = async (key: string | undefined) => {
   if (!azureEndpoint) {
     console.log("You are missing your Azure endpoint definition. You must add it as an environment variable.");
   };
-  data = await fetch(azureEndpoint.toString(), {
+  data = await fetch(`${azureEndpoint.toString()}sts/v1.0/issuetoken`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',
